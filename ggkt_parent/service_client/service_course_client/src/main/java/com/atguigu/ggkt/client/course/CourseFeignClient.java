@@ -1,0 +1,27 @@
+package com.atguigu.ggkt.client.course;
+
+import com.atguigu.ggkt.model.vod.Course;
+import com.atguigu.ggkt.model.vod.Teacher;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
+
+/**
+ * @author Tianjinfei
+ * @Version 1.0
+ */
+@FeignClient(value = "service-vod")//远程调用(service-wechat模块远程调用service-vod模块)
+public interface CourseFeignClient {
+    //根据关键字查询课程
+    @GetMapping("/api/vod/course/inner/findByKeyword/{keyword}")
+    List<Course> findByKeyword(@PathVariable String keyword);
+    //根据课程id获取课程
+    @GetMapping("/api/vod/course/inner/getById/{courseId}")
+    Course getById(@PathVariable Long courseId);
+
+    //根据讲师id获取讲师信息
+    @GetMapping("/api/vod/course/inner/getTeacher/{id}")
+    Teacher getTeacherInfo(@PathVariable Long id);
+}
